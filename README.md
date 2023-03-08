@@ -1,2 +1,5 @@
-# saahith-fan-club
-We love saahith
+# Modelling of Financial Assets with Markov Chains
+
+
+## By Vihar Shah, Siddharth Lakkoju, and Saahith Janapati
+
