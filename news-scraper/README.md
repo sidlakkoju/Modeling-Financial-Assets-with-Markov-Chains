@@ -8,7 +8,7 @@ First, install the necessary Python dependcies using:
 ```
 pip install -r requirements.txt
 ```
-You will also need to set up Selenium WebDriver on your computer. You can download it here[https://chromedriver.chromium.org/downloads] for your OS. This script has been tested on Chrome versions 111 and 110.
+You will also need to set up Selenium WebDriver on your computer. You can download it [here](https://chromedriver.chromium.org/downloads) for your OS. This script has been tested on Chrome versions 111 and 110.
 
 ## Usage
 There are four arguments you need to pass to the script:
