@@ -12,6 +12,8 @@ def scrape_headlines(ticker):
     url = f"https://finviz.com/quote.ashx?t={ticker}&p=d"
     response = requests.get(url, headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
+
+
     # Might have to use this depending on which html class is right:
     news_table = soup.find(id = 'news-table')
     rows = news_table.find_all('div', class_ = "news-link-left")
@@ -21,6 +23,14 @@ def scrape_headlines(ticker):
       # headline = row.text
       headlines.append(row.text)
     return headlines
+
+
+ticker = input("Enter a company ticker: ")
+headlines = scrape_headlines(ticker)
+for headline in headlines:
+    print(headline)
+
+
 
 def sentiment_analysis(headlines):
     analyzer = SentimentIntensityAnalyzer()
