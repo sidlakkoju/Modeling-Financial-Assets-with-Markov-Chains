@@ -41,7 +41,7 @@ class finviz_scraper() :
 
                 dates.append(month + '/' + day + '/' + year)
 
-            self.news['Dates'] = dates
+            self.news['Date'] = dates
             return self.news
 
         except Exception as e:
