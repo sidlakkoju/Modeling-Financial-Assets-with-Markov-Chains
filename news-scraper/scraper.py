@@ -77,8 +77,18 @@ def get_results_for_one_day(date):
         custom_range_button = driver.find_element(by=By.XPATH, value='//*[@id="lb"]/div/g-menu/g-menu-item[8]/div/div/span')
         custom_range_button.click()
     except:
-        custom_range_button = driver.find_element(by=By.XPATH, value='//*[@id="lb"]/div/g-menu/g-menu-item[7]/div/div/span')
-        custom_range_button.click()
+        try:
+            custom_range_button = driver.find_element(by=By.XPATH, value='//*[@id="lb"]/div/g-menu/g-menu-item[7]/div/div/span')
+            custom_range_button.click()
+        except:
+            try:
+                custom_range_button = driver.find_element(by=By.XPATH, value='/html/body/div[7]/div/div[7]/div/g-menu/g-menu-item[8]/div/div')
+                custom_range_button.click()
+            except:
+                print("Was not able to find custom range button")
+            
+            
+
 
 
     from_field = driver.find_element(by=By.XPATH, value='//*[@id="OouJcb"]')
