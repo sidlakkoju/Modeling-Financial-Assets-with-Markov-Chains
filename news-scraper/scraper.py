@@ -8,6 +8,7 @@ import time
 import csv
 import tqdm
 import argparse
+import os
 
 
 driver = None
@@ -90,35 +91,27 @@ def get_results_for_one_day(date):
     from_field.send_keys(date_string)
     to_field.send_keys(date_string)
 
-
     go_button.click()
 
     # Find all the search results on the first page
     search_results = driver.find_elements(by=By.CLASS_NAME, value='SoaBEf')
-
     results = []
     # Loop through each search result and extract the information
     for result in search_results:
         # Extract the name
         name = result.find_element(by=By.CLASS_NAME, value='mCBkyc').text
-
         # Extract the publisher (if available)
         try:
             publisher = result.find_element(by=By.CLASS_NAME, value='CEMjEf').text
-
         except:
             publisher = ''
-
         # Extract the link
         link = result.find_element(by=By.CLASS_NAME, value='WlydOe').get_attribute('href')
-
         # Extract the description (if available)
         try:
             description = result.find_element(by=By.CLASS_NAME, value='GI74Re').text
-
         except:
             description = ''
-
         row = [date_string, name, publisher, link, description]
         results.append(row)
     
@@ -135,6 +128,10 @@ def main():
     parser.add_argument("start_date", type=str, help="first day to save query data, in the format m/d/y")
     parser.add_argument("end_date", type=str, help="final day to save query data, in the format m/d/y")
     parser.add_argument("filename", type=str, help="output csv file")
+
+    # parser.add_argument("-a", "--append", action="store_false", help="append to the given file instead of overwriting it")
+
+
     args = parser.parse_args()
 
 
@@ -147,15 +144,29 @@ def main():
     # calculate difference between dates
     delta = end_date - start_date
 
-    with open(args.filename, mode='w+', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(["Date", "Title", "Publisher", "Description", "Link"])  # header
+    mode = "w+"
+    if os.path.exists(args.filename):
+        mode = "a"
 
-        for i in tqdm.tqdm(range(delta.days + 1)):
-            date = start_date + timedelta(days=i)
-            new_results = get_results_for_one_day(date)
-            for result in new_results:
-                writer.writerow(result)
+
+    if mode == "w+":         # if file doesn't exist, write header
+        with open(args.filename, mode=mode, newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(["Date", "Title", "Publisher", "Link", "Description"])  # header
+            for i in tqdm.tqdm(range(delta.days + 1)):
+                date = start_date + timedelta(days=i)
+                new_results = get_results_for_one_day(date)
+                for result in new_results:
+                    writer.writerow(result)
+    
+    else:       # if file exists, append to it
+        with open(args.filename, mode=mode, newline='') as file:
+            writer = csv.writer(file)
+            for i in tqdm.tqdm(range(delta.days + 1)):
+                date = start_date + timedelta(days=i)
+                new_results = get_results_for_one_day(date)
+                for result in new_results:
+                    writer.writerow(result)
 
     # Close the driver
     driver.quit()
