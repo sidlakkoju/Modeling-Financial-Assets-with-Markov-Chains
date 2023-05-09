@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-# import pytz
 
 # join price data and sentiment data
 news_df = pd.read_csv('AAPL-histnews.csv')
@@ -19,3 +18,4 @@ merged_df.to_csv('AAPL-histnews-merged.csv', index=False)
 df = pd.read_csv('AAPL-histnews-merged.csv')
 df["created_at"] = pd.to_datetime(df["created_at"])
 df.set_index("created_at", inplace=True)
+print(df.head())
