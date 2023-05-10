@@ -1,0 +1,11 @@
+Overall accuracy: 0.18639798488664988
+Sentiment accuracy: 0.3526448362720403
+Stock movement accuracy: 0.5138539042821159
+
+                  (negative, down)  (negative, up)  (neutral, down)  (neutral, up)  (positive, down)  (positive, up)
+(negative, down)              0.22            0.18             0.08           0.12              0.17            0.24
+(negative, up)                0.15            0.23             0.09           0.07              0.26            0.20
+(neutral, down)               0.18            0.16             0.12           0.13              0.23            0.18
+(neutral, up)                 0.16            0.20             0.15           0.09              0.22            0.17
+(positive, down)              0.18            0.22             0.09           0.06              0.24            0.21
+(positive, up)                0.18            0.19             0.09           0.08              0.23            0.23
